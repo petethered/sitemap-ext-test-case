@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Default.astro"
+import { request } from "../../data/mlb"
+
+let data = await request({type: "divisions"});
+
+console.log(data.divisions[0]);
+
+const breadCrumbs = [
+    {
+        path: "/divisions/",
+        text: "Divisions"
+    },
+    
+]
+
+const pageTitle = "Divisions"
+
+---
+
+<Layout title={pageTitle} breadCrumbs={breadCrumbs}>
+	<h1 class="text-3xl">Sitemap SSR Test</h1>
+
+	<ul class="list-disc m-4 ml-6">
+        {data.divisions.map((item) => {
+           return( <li>
+                <a href=`/divisions/${item.id}/` class="underline">{item.name}</a>		
+            </li>)
+            })}
+	</ul>	
+</Layout>

@@ -1,0 +1,65 @@
+---
+import Layout from "../../layouts/Default.astro"
+import { request } from "../../data/mlb"
+
+import sitemap from 'sitemap-ext:config';
+sitemap(async ({ addToSitemap }) => {
+  const ids = await request({type: "divisions"});
+
+  addToSitemap(
+    
+    data.divisions.map((post) => {console.log(post);
+return({
+        id: post.id,
+    })})
+  );
+});
+
+
+
+const { id } = Astro.params;
+
+let data = await request({type: "divisions", "id": id});
+data = data['divisions'][0];
+
+let league = (await request({type: "league", "id": data['league']['id']}))['leagues'][0];
+
+console.log(data, league);
+
+const breadCrumbs = [
+    {
+        path: "/divisions/",
+        text: "Divisions"
+    },
+    {
+        path: `/divisions/${id}/`,
+        text: data.name
+    }
+]
+
+const pageTitle = `Divisions - ${data.name}`
+
+---
+
+<Layout title={pageTitle} breadCrumbs={breadCrumbs}>
+	<h1 class="text-3xl">{data.name}</h1>
+
+	<ul class="list-disc m-4 ml-6">
+        {
+            Object.keys(data).map((key) => {
+
+                return (<li>{key} = {typeof(data[key] !== "object") ? data[key] : "object"}</li>)
+            })
+        }
+	</ul>	
+	<h1 class="text-3xl">{league.name}</h1>
+	<ul class="list-disc m-4 ml-6">
+        {
+            Object.keys(league).map((key) => {
+
+                return (<li>{key} = {typeof(league[key] !== "object") ? league[key] : "object"}</li>)
+            })
+        }
+	</ul>	
+</Layout>
+
