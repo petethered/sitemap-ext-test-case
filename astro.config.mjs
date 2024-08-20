@@ -35,5 +35,5 @@ export default defineConfig({
     includeByDefault: true,
     lastmod: new Date()
   })],
-  adapter: cloudflare()
+//  adapter: cloudflare()
 });

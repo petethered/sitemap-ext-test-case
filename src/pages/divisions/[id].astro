@@ -4,7 +4,16 @@ import { request } from "../../data/mlb"
 
 import sitemap from 'sitemap-ext:config';
 sitemap(async ({ addToSitemap }) => {
+	console.log("-----")
+	console.log("-----")
+	console.log("before await")
+
   const ids = await request({type: "divisions"});
+
+	console.log("After await");
+	console.log("-----")
+	console.log("-----")
+
 
   addToSitemap(
     
