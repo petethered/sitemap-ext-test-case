@@ -15,7 +15,13 @@ await sitemap({
   bundleFile: import.meta.url,
   sourceFile: "/Users/peterazuolas/development/testCase/src/pages/divisions/[id].astro"
 }, async ({ addToSitemap }) => {
+  console.log("-----");
+  console.log("-----");
+  console.log("before await");
   await request({ type: "divisions" });
+  console.log("After await");
+  console.log("-----");
+  console.log("-----");
   addToSitemap(
     data.divisions.map((post) => {
       console.log(post);
